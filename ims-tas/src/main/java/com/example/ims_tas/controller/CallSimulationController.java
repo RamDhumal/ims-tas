@@ -1,33 +1,25 @@
 package com.example.ims_tas.controller;
 
-import com.example.ims_tas.service.CallForwardingService;
-import com.example.ims_tas.sip.SipListener;
-import com.example.ims_tas.sip.SipUtils.SipMessage;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * REST Controller to trigger SIP message flow simulation manually.
- */
 @RestController
+@RequestMapping("/call")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CallSimulationController {
 
-    private final SipListener sipListener;
-
-    public CallSimulationController(CallForwardingService forwardingService) {
-        this.sipListener = new SipListener(forwardingService);
+    @PostMapping("/start")
+    public String startCall(@RequestParam String from, @RequestParam String to) {
+        // In this setup, signaling is done entirely via WebSocket
+        return "Call start triggered from " + from + " to " + to;
     }
 
-    @GetMapping("/simulate")
-    public String simulateCallFlow() {
-        // Simulate IMS sending INVITE
-        SipMessage invite = new SipMessage("INVITE", "sip:1001@ims.operator.com", "sip:1000@ims.operator.com");
-        sipListener.onMessage(invite);
+    @PostMapping("/answer")
+    public String answerCall(@RequestParam String from, @RequestParam String to) {
+        return "Call answered by " + from;
+    }
 
-        // Simulate IMS sending BYE later
-        SipMessage bye = new SipMessage("BYE", "sip:1001@ims.operator.com", "sip:1000@ims.operator.com");
-        sipListener.onMessage(bye);
-
-        return "Simulation completed. Check logs for flow.";
+    @PostMapping("/end")
+    public String endCall(@RequestParam String from, @RequestParam String to) {
+        return "Call ended by " + from;
     }
 }

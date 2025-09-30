@@ -17,26 +17,20 @@
     </parent>
 
     <dependencies>
-        <!-- Spring Boot Web (REST controller to trigger simulation) -->
-        <dependency>
+    <dependency>
     <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-websocket</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter</artifactId>
 </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Optional: JAIN SIP RI if you want to extend later -->
-        <dependency>
-            <groupId>javax.sip</groupId>
-            <artifactId>jain-sip-ri</artifactId>
-            <version>1.2.342</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+  </dependencies>
 
     <build>
         <plugins>
